@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Prediction</title>
+    <link rel="stylesheet" href="/static/css/styles3.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Disease Prediction System</h1>
+        <p>Select your symptoms to predict the possible disease:</p>
+
+        <form id="symptom-form" action="/home/predict" method="POST">
+            <div id="symptom-select-container">
+                <!-- Initially, show four dropdowns -->
+                <div class="symptom-select">
+                    <select name="symptoms" class="symptom-dropdown">
+                        <option value="" disabled selected>Select a symptom</option>
+                        {% for symptom in symptoms %}
+                            <option value="{{ symptom }}">{{ symptom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="symptom-select">
+                    <select name="symptoms" class="symptom-dropdown">
+                        <option value="" disabled selected>Select a symptom</option>
+                        {% for symptom in symptoms %}
+                            <option value="{{ symptom }}">{{ symptom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="symptom-select">
+                    <select name="symptoms" class="symptom-dropdown">
+                        <option value="" disabled selected>Select a symptom</option>
+                        {% for symptom in symptoms %}
+                            <option value="{{ symptom }}">{{ symptom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="symptom-select">
+                    <select name="symptoms" class="symptom-dropdown">
+                        <option value="" disabled selected>Select a symptom</option>
+                        {% for symptom in symptoms %}
+                            <option value="{{ symptom }}">{{ symptom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            
+            <button type="button" id="add-symptom-btn" class="btn add-btn">+ Add Symptom</button>
+            <button type="submit" class="btn submit-btn">Predict Disease</button>
+        </form>
+
+        <div id="result" class="result-container"></div>
+    </div>
+
+    <script>
+        document.getElementById('add-symptom-btn').addEventListener('click', function() {
+            const symptomSelectHTML = `
+                <div class="symptom-select">
+                    <select name="symptoms" class="symptom-dropdown">
+                        <option value="" disabled selected>Select a symptom</option>
+                        {% for symptom in symptoms %}
+                            <option value="{{ symptom }}">{{ symptom }}</option>
+                        {% endfor %}
+                    </select>
+                </div>`;
+            document.getElementById('symptom-select-container').insertAdjacentHTML('beforeend', symptomSelectHTML);
+        });
+
+        const form = document.getElementById('symptom-form');
+        form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch('/home/predict', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            let resultHTML = '<h2>Predictions</h2>';
+            for (const [model, prediction] of Object.entries(result)) {
+                resultHTML += `<p><strong>${model}:</strong> ${prediction}</p>`;
+            }
+            document.getElementById('result').innerHTML = resultHTML;
+        });
+    </script>
+</body>
+</html>

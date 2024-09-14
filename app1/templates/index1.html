@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Prescription Assistant</title>
+    <link rel="apple-touch-icon" sizes="180x180" href=".static/images/favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./static/images/favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./static/images/favicon_io/favicon-16x16.png">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('https://media.istockphoto.com/id/619636894/photo/hospital-corridor-and-doctor-as-a-blurred-defocused-background.jpg?s=612x612&w=0&k=20&c=TdoBrcOjOWPEshB0uHoDk2ecG_ySwWt1K0kf7O_jvkI='); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: #fff;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .output-window {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #fff;
+            color: #000;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 30px;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="navbar-brand">Medsign</a>
+        <a href="/" class="nav-link">Home</a>
+    </nav>
+    <div class="container" style="margin-top: 80px;">
+        <h1 class="text-center">AI Prescription Assistant</h1>
+        <form id="uploadForm" name="prescription" action="{{ url_for('app1.upload_file') }}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="image">Upload Prescription:</label>
+                <input type="file" id="image" name="image" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Upload and Process</button>
+        </form>
+        <div id="result" class="output-window">
+            {{ result|safe }}
+        </div>
+    </div>
+</body>
+</html>
