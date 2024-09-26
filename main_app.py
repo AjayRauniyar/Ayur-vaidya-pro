@@ -1,4 +1,5 @@
 from flask import Flask
+import os
 from main_blueprint import main
 from app1.app1_routes import app1  # Ensure proper import path
 from app2.app2 import app2 
@@ -17,4 +18,5 @@ def create_app():
 app = create_app()
 
 if __name__ == '__main__':
-    app.run(debug=True, port=3011)
+   port = int(os.environ.get('PORT', 5000))  # Get the port from the environment or use 5000 as default
+   app.run(host='0.0.0.0', port=port) 
