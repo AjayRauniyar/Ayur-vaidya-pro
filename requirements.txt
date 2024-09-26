@@ -9,3 +9,4 @@ transformers
 pytesseract
 textwrap3
 pandas
+sklearn
